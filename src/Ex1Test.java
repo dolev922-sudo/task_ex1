@@ -203,13 +203,20 @@ class Ex1Test {
 	}
     @Test
     public void derivative() {
-        double[] p1 = {3 , 4 ,5};
-        double[] p2 = {13,12,0};
-        double[] p3 = {0};
+        double[] p1 = {3, 4, 5};//5x^2+4x+3
         double[] test_p1 = Ex1.derivative(p1);
+        double[] expected_p1 = {4, 10,};//10x+4
+        assertArrayEquals(expected_p1, test_p1, Ex1.EPS);
+        double[] p2 = {13, 12, 0};//12x+13
         double[] test_p2 = Ex1.derivative(p2);
+        double[] expected_p2 = {12, 0};//12
+        assertArrayEquals(expected_p2, test_p2, Ex1.EPS);
+        double[] p3 = {0};//0
         double[] test_p3 = Ex1.derivative(p3);
-        assertEquals();
+        double[] expected_p3 = {0};//0
+        assertArrayEquals(expected_p3, test_p3, Ex1.EPS);
+
+
 
 
     }

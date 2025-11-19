@@ -195,6 +195,12 @@ public class Ex1 {
               p1 = p2;
               p2 = p;
           }
+          int max = Math.max(p1.length,p2.length);
+          int min = Math.min(p1.length,p2.length);
+          ans = new double[max];
+          for (int i = 0; i < max; i++) {
+              ans[i] = p1[i] + p2[i];
+          }
       }
 		return ans;
 	}
@@ -236,8 +242,6 @@ public class Ex1 {
                 ans[i] = po[i + 1] * (i + 1);
             }
         }
-
-         /////////////////// */
 		return ans;
 	}
 }
