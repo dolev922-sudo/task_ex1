@@ -215,6 +215,11 @@ class Ex1Test {
         double[] test_p3 = Ex1.derivative(p3);
         double[] expected_p3 = {0};//0
         assertArrayEquals(expected_p3, test_p3, Ex1.EPS);
+        double[] p4 = {0, 4, 5};//5x^2+4x
+        double[] test_p4 = Ex1.derivative(p4);
+        double[] expected_p4 = {4, 10};//10x+4
+        assertArrayEquals(expected_p4, test_p4, Ex1.EPS);
+
 
 
 

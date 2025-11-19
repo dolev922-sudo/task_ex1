@@ -187,21 +187,23 @@ public class Ex1 {
 	 * @return
 	 */
 	public static double[] add(double[] p1, double[] p2) {
-		double [] ans = ZERO;//
-      if ( p1.length != 0 && p2.length != 0 ) {
-          if (p1.length > p2.length) {//replace
-              double [] p =null;
-              p1 = p;
+        if (p1 ==null && p2 ==null ) {
+            return null;
+        }
+        if (p1.length > p2.length) {//replace
+              double [] temp = p1;
               p1 = p2;
-              p2 = p;
+              p2 = temp;
           }
-          int max = Math.max(p1.length,p2.length);
-          int min = Math.min(p1.length,p2.length);
-          ans = new double[max];
-          for (int i = 0; i < max; i++) {
+          int max_length = p2.length;
+          int min_length = p1.length;
+          double[] ans = new double[max_length];
+          for (int i = 0; i < min_length; i++) {
               ans[i] = p1[i] + p2[i];
           }
-      }
+          for(int i = min_length; i < max_length; i++) {
+              ans[i] =p2[i];
+          }
 		return ans;
 	}
 	/**
