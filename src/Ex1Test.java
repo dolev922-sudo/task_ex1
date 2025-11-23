@@ -201,6 +201,10 @@ class Ex1Test {
 		double area = 58.5658;
 		assertEquals(a1,area, Ex1.EPS);
 	}
+
+    /**
+     * my tests
+     */
     @Test
     public void derivative() {
         double[] p1 = {3, 4, 5};//5x^2+4x+3
@@ -219,10 +223,17 @@ class Ex1Test {
         double[] test_p4 = Ex1.derivative(p4);
         double[] expected_p4 = {4, 10};//10x+4
         assertArrayEquals(expected_p4, test_p4, Ex1.EPS);
-
-
-
-
-
+    }
+    @Test
+    public void test_integral() {
+        double[] p1 = {3, 4, 6};
+        double[] test_p1 = Ex1.integral(p1);
+        double[] expected_p1 = {0 ,3 ,2 ,2};
+        assertArrayEquals(expected_p1, test_p1, Ex1.EPS);
+        double[] p2 = {};
+        double[] test_p2 = Ex1.integral(p2);
+        double[] expected_p2 = {0};
+        assertArrayEquals(expected_p2, test_p2, Ex1.EPS);
     }
 }
+

@@ -141,6 +141,18 @@ public class Ex1 {
          /////////////////// */
 		return ans;
 	}
+
+
+    public static double[] integral(double[] p1) {
+        if (p1.length == 0 || p1 == null) {
+            return new double[]{0.0};
+        }
+        double[] ans = new double[p1.length + 1];
+        for (int i = 0; i < p1.length; i++) {
+            ans[i + 1] = p1[i] / (i + 1);
+        }
+        return ans;
+    }
 	
 	/**
 	 * Given two polynomial functions (p1,p2), a range [x1,x2] and an integer representing the number of Trapezoids between the functions (number of samples in on each polynom).
@@ -155,9 +167,12 @@ public class Ex1 {
 	 */
 	public static double area(double[] p1,double[]p2, double x1, double x2, int numberOfTrapezoid) {
 		double ans = 0;
-        /** add you code below
-
-         /////////////////// */
+        if (x1 > x2 ) {//replace
+            double temp = x1;
+            x1 = x2;
+            x2 = temp;
+        }
+        double width_of_trapezoids = (x2-x1)/numberOfTrapezoid;
 		return ans;
 	}
 	/**
@@ -219,9 +234,18 @@ public class Ex1 {
 	 */
 	public static double[] mul(double[] p1, double[] p2) {
 		double [] ans = ZERO;//
-        /** add you code below
-
-         /////////////////// */
+      if(p1 == null || p2 == null){
+          return null;
+      }
+        int len1 = p1.length;
+        int len2 = p2.length;
+        ans = new double[len1 + len2 - 1];
+        for (int i = 0; i < len1; i++) {
+            for (int j = 0 ; j < len2; j++) {
+                double temp_num = p1[i] * p2[j];
+                ans[i+j] += temp_num;
+            }
+        }
 		return ans;
 	}
 	/**
