@@ -108,12 +108,12 @@ public class Ex1 {
         int min_len = shorter.length;
         int max_len = longer.length;
         for (int i = 0; i < min_len; i++) {
-            if (Math.abs(shorter[i] - longer[i]) >= EPS) {
+            if (Math.abs(shorter[i] - longer[i]) >= Ex1.EPS) {
                 return false;
             }
         }
         for (int j = min_len; j < max_len; j++) {
-            if (Math.abs(longer[j]) >= EPS) {
+            if (Math.abs(longer[j]) >= Ex1.EPS) {
                 return false;
             }
         }
