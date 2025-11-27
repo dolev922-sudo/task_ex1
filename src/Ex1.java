@@ -199,21 +199,20 @@ public class Ex1 {
      *     ans+ Math.sqrt(dd)
      * }
 	 */
-	public static double length(double[] p, double x1, double x2, int numberOfSegments) {
-		double ans = x1;
+    public static double length(double[] p, double x1, double x2, int numberOfSegments) {
+        double ans = 0;
         if (x1 == x2) {
             return 0;
         }
-        int p_length = p.length;
-        double [] in_p = new double[p_length];
-       double lbs = (x2 - x1) / (numberOfSegments+1);//length between segments+1
-        for(int i=0;i<p_length;i++) {
-        }
+        double delta_dx = (x2-x1)/numberOfSegments;
         for (int i = 0; i < numberOfSegments; i++) {
-
+            double currentX = x1 + i * delta_dx;
+            double dy = (f(p, currentX + delta_dx) - f(p,currentX));
+            double temp = Math.sqrt(Math.pow(delta_dx, 2) + Math.pow(dy, 2));
+            ans += temp;
         }
-		return ans;
-	}
+        return ans;
+    }
 
 
     public static double[] integral(double[] p1) {

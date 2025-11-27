@@ -235,5 +235,17 @@ class Ex1Test {
         double[] expected_p2 = {0};
         assertArrayEquals(expected_p2, test_p2, Ex1.EPS);
     }
+    @Test
+    public void test_length() {
+        double[] p1 = {3, 4, 6};
+        double[] x1 = {-1,0,5,10,11.2};
+        double[] x2 = {4,1,13,25,544};
+        int[] numberOfSegments = {1,3,5,19,100};
+        double[] expected_len = {110.1135,10.056,912.137,3150.354,1,073,506.7};
+        for (int i = 0; i < numberOfSegments.length; i++) {
+            double test_len = Ex1.length(p1, x1[i],x2[i],numberOfSegments[i]);
+            assertEquals(expected_len[i], test_len, Ex1.EPS);
+        }
+    }
 }
 
