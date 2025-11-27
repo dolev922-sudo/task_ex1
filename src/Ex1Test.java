@@ -141,7 +141,7 @@ class Ex1Test {
 	public void testEquals() {
 		double[][] d1 = {{0}, {1}, {1,2,0,0}};
 		double[][] d2 = {Ex1.ZERO, {1+ Ex1.EPS/2}, {1,2}};
-		double[][] xx = {{-2* Ex1.EPS}, {1+ Ex1.EPS*1.2}, {1,2, Ex1.EPS}};
+		double[][] xx = {{-2* Ex1.EPS}, {1+ Ex1.EPS*1.2}, {1,2, Ex1.EPS/2}};
 		for(int i=0;i<d1.length;i=i+1) {
 		assertTrue(Ex1.equals(d1[i], d2[i]));
 		}

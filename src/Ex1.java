@@ -130,9 +130,6 @@ public class Ex1 {
 		String ans = "";
 		if(poly.length==0) {ans="0";}
 		else {
-            /** add you code below
-
-             /////////////////// */
 		}
 		return ans;
 	}
@@ -148,10 +145,38 @@ public class Ex1 {
 	 */
 	public static double sameValue(double[] p1, double[] p2, double x1, double x2, double eps) {
 		double ans = x1;
-        /** add you code below
-
-         /////////////////// */
-		return ans;
+        double start = x1;
+        double mid = (x2+x1)/2;
+        double end = x2;
+       if (p1 == null && p2 == null) {
+           return 0;
+       }
+       if (p1 == null || p2 == null) {
+           return -1;
+       }
+       if (Math.abs( f(p1, x1) - f(p2, x1))<Ex1.EPS) {
+           return x1;
+       }
+        if (Math.abs(f(p1, mid) - f(p2, mid))<Ex1.EPS) {
+            return mid;
+        }
+       if (f(p1, x1) > f(p2, x1)) {//if f1(x1)>f2(x1)
+           if (f(p1, mid) > f(p2, mid)) {
+               sameValue(p1, p2, mid, end, Ex1.EPS);
+           }
+           if (f(p1, mid) < f(p2, mid)) {
+               sameValue(p1, p2, start, mid, Ex1.EPS);
+           }
+       }
+       else if (f(p2, x1) > f(p1, x1)) {
+           if (f(p2, mid) > f(p1, mid)) {
+               sameValue(p1, p2, mid, end, Ex1.EPS);
+           }
+           if (f(p2, mid) < f(p1, mid)) {
+               sameValue(p1, p2, start, mid, Ex1.EPS);
+           }
+       }
+        return ans;
 	}
 	/**
 	 * Given a polynomial function (p), a range [x1,x2] and an integer with the number (n) of sample points.
@@ -176,9 +201,17 @@ public class Ex1 {
 	 */
 	public static double length(double[] p, double x1, double x2, int numberOfSegments) {
 		double ans = x1;
-        /** add you code below
+        if (x1 == x2) {
+            return 0;
+        }
+        int p_length = p.length;
+        double [] in_p = new double[p_length];
+       double lbs = (x2 - x1) / (numberOfSegments+1);//length between segments+1
+        for(int i=0;i<p_length;i++) {
+        }
+        for (int i = 0; i < numberOfSegments; i++) {
 
-         /////////////////// */
+        }
 		return ans;
 	}
 
