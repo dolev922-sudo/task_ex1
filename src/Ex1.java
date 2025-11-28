@@ -99,22 +99,14 @@ public class Ex1 {
         if (p1 == null || p2 == null) {
             return false;
         }
-        double[] shorter = p1;
-        double[] longer = p2;
-        if (p1.length > p2.length) {
-            shorter = p2;
-            longer = p1;
-        }
-        int min_len = shorter.length;
-        int max_len = longer.length;
-        for (int i = 0; i < min_len; i++) {
-            if (Math.abs(shorter[i] - longer[i]) >= Ex1.EPS) {
-                return false;
-            }
-        }
-        for (int j = min_len; j < max_len; j++) {
-            if (Math.abs(longer[j]) >= Ex1.EPS) {
-                return false;
+        int max_len = Math.max(p1.length, p2.length);
+
+        for (int i = 0; i < max_len; i++) {
+            double x = i;
+            double y1 = f(p1, x);
+            double y2 = f(p2, x);
+            if (Math.abs(y1 - y2) > EPS) {
+                ans = false;
             }
         }
         return ans;
@@ -126,13 +118,34 @@ public class Ex1 {
 	 * @param poly the polynomial function represented as an array of doubles
 	 * @return String representing the polynomial function:
 	 */
-	public static String poly(double[] poly) {
-		String ans = "";
-		if(poly.length==0) {ans="0";}
-		else {
-		}
-		return ans;
-	}
+    public static String poly(double[] poly) {
+        String ans = "";
+        if (poly.length == 0 || poly == null) {
+            ans = "0";
+        }
+        boolean is_first = true;
+        for (int i = poly.length - 1; i >= 0; i--) {
+            double val = poly[i];
+            if (val == 0) {
+                continue;
+            }
+            if (val> 0 && !is_first){
+                ans += "+";
+            }
+            ans += val;
+           if (i==1) {
+               ans+="x";
+           }
+           else if (i>1) {
+               ans+="x^"+i;
+           }
+           is_first = false;
+        }
+        if (ans.equals("")) {
+            ans = "0";
+        }
+        return ans;
+    }
 	/**
 	 * Given two polynomial functions (p1,p2), a range [x1,x2] and an epsilon eps. This function computes an x value (x1<=x<=x2)
 	 * for which |p1(x) -p2(x)| < eps, assuming (p1(x1)-p2(x1)) * (p1(x2)-p2(x2)) <= 0.

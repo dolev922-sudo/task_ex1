@@ -247,5 +247,24 @@ class Ex1Test {
             assertEquals(expected_len[i], test_len, Ex1.EPS);
         }
     }
+    @Test
+    public void test_poly() {
+        double[] p1 = {3, 4, 6};// 6x^2+4x+3
+        String test_poly = Ex1.poly(p1);
+        String expected_p1 = "6.0x^2+4.0x+3.0";
+        assertEquals(expected_p1, test_poly);
+        double[] p2 = {};//0
+        String test_poly2 = Ex1.poly(p2);
+        String expected_p2 = "0";
+        assertEquals(expected_p2, test_poly2);
+        double[] p3 = {2, 3.5, 0, 0};// 3.5x+2
+        String test_poly3 = Ex1.poly(p3);
+        String expected_p3 = "3.5x+2.0";
+        assertEquals(expected_p3, test_poly3);
+        double[] p4 = {-1,0,7,24};// 24x^3+7^2-1
+        String test_poly4 = Ex1.poly(p4);
+        String expected_p4 = "24.0x^3+7.0x^2-1.0";
+        assertEquals(expected_p4,test_poly4);
+    }
 }
 
