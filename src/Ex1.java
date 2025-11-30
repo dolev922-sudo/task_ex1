@@ -70,6 +70,7 @@ public class Ex1 {
      * @param xx
      * @param yy
      * @return an array of doubles representing the coefficients of the polynom.
+     * takes 3-2 point and get polynome from it
      */
     public static double[] PolynomFromPoints(double[] xx, double[] yy) {
         double[] ans = null;
@@ -113,6 +114,8 @@ public class Ex1 {
      * @param p1 first polynomial function
      * @param p2 second polynomial function
      * @return true iff p1 represents the same polynomial function as p2.
+     * if p1 || p2 null or both
+     * checking if f(x1)=f2(x1)-+EPS
      */
     public static boolean equals(double[] p1, double[] p2) {
         boolean ans = true;
@@ -140,6 +143,8 @@ public class Ex1 {
 	 * For example the array {2,0,3.1,-1.2} will be presented as the following String  "-1.2x^3 +3.1x^2 +2.0"
 	 * @param poly the polynomial function represented as an array of doubles
 	 * @return String representing the polynomial function:
+     * cheecks if poly is 0
+     * add for each [i] the +or- then the x then if needed ^
 	 */
     public static String poly(double[] poly) {
         String ans = "";
@@ -178,6 +183,9 @@ public class Ex1 {
 	 * @param x2 - maximal value of the range
 	 * @param eps - epsilon (positive small value (often 10^-3, or 10^-6).
 	 * @return an x value (x1<=x<=x2) for which |p1(x) - p2(x)| < eps.
+     * call for himself and always search the middle
+     * if the mid isnt the same value search right or left and call same value again
+     * continue untill find the same value
 	 */
 	public static double sameValue(double[] p1, double[] p2, double x1, double x2, double eps) {
 		double ans = x1;
@@ -228,6 +236,7 @@ public class Ex1 {
 	 * @param x2 - maximal value of the range
 	 * @param numberOfSegments - (A positive integer value (1,2,...).
 	 * @return the length approximation of the function between f(x1) and f(x2).
+     * get numberOfSegments and do Pythagoras on the 3 points that got from the numberOfSegments.
 	 */
     public static double length(double[] p, double x1, double x2, int numberOfSegments) {
         double ans = 0;
@@ -246,19 +255,6 @@ public class Ex1 {
         }
         return ans;
     }
-
-
-    public static double[] integral(double[] p1) {
-        if (p1.length == 0 || p1 == null) {
-            return new double[]{0.0};
-        }
-        double[] ans = new double[p1.length + 1];
-        for (int i = 0; i < p1.length; i++) {
-            ans[i + 1] = p1[i] / (i + 1);
-        }
-        return ans;
-    }
-	
 	/**
 	 * Given two polynomial functions (p1,p2), a range [x1,x2] and an integer representing the number of Trapezoids between the functions (number of samples in on each polynom).
 	 * This function computes an approximation of the area between the polynomial functions within the x-range.
@@ -269,6 +265,8 @@ public class Ex1 {
 	 * @param x2 - maximal value of the range
 	 * @param numberOfTrapezoid - a natural number representing the number of Trapezoids between x1 and x2.
 	 * @return the approximated area between the two polynomial functions within the [x1,x2] range.
+     * calculat trapezoid btween the range x1-x2
+     * and if there is samevalue between p1 and p2 calculat the trapezoids between part1_area and part2_area
 	 */
 	public static double area(double[] p1,double[]p2, double x1, double x2, int numberOfTrapezoid) {
 		double ans = 0;
@@ -307,6 +305,7 @@ public class Ex1 {
 	 * 
 	 * @param p - a String representing polynomial function.
 	 * @return
+     *
 	 */
 	public static double[] getPolynomFromString(String p) {
 		double [] ans = ZERO;
