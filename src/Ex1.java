@@ -178,6 +178,9 @@ public class Ex1 {
         if (Math.abs(f(p1, mid) - f(p2, mid))<Ex1.EPS) {
             return mid;
         }
+        if (Math.abs(x2-x1)<Ex1.EPS) {
+            return x1;
+        }
        if (f(p1, x1) > f(p2, x1)) {//if f1(x1)>f2(x1)
            if (f(p1, mid) > f(p2, mid)) {
                return sameValue(p1, p2, mid, end, Ex1.EPS);
@@ -207,23 +210,14 @@ public class Ex1 {
 	 * @param x2 - maximal value of the range
 	 * @param numberOfSegments - (A positive integer value (1,2,...).
 	 * @return the length approximation of the function between f(x1) and f(x2).
-     * dx = x2-x1
-     * delta = dx/num_of_Seg
-     * ans = 0
-     * for(double x = x; x<x2;x=x+delta){
-     *     fx= Ex1.f(p,x);
-     *     fx2 = Ex1.f(p,x=delta)
-     *     dy = delta*delta + dy*dy;
-     *     ans+ Math.sqrt(dd)
-     * }
 	 */
     public static double length(double[] p, double x1, double x2, int numberOfSegments) {
         double ans = 0;
-        if(numberOfSegments==0){
+        if(numberOfSegments<=0){
             return ans;
         }
         if (x1 == x2) {
-            return 0;
+            return ans;
         }
         double delta_dx = (x2-x1)/numberOfSegments;
         for (int i = 0; i < numberOfSegments; i++) {
@@ -268,10 +262,22 @@ public class Ex1 {
         for (int i = 0; i < numberOfTrapezoid; i++) {
             double x_start = min_x + i * dx;
             double x_end = min_x + (i+1) * dx;
+            double intersect = sameValue(p1, p2, x_start , x_end, Ex1.EPS);
+            boolean has_cut = (intersect >x_start+Ex1.EPS && intersect<x_end-Ex1.EPS);
+            if (has_cut) {
+                double hight_start =Math.abs(f(p1, x_start) - f(p2, x_start));
+                double hight_mid = Math.abs(f(p1, intersect) - f(p2,intersect));
+                double part1_area = ((hight_start+hight_mid)/2)*(intersect-x_start);
+                double hight_end =  Math.abs(f(p1, x_end) - f(p2, x_end));
+                double paert2_area = ((hight_mid+hight_end)/2)*(x_end-intersect);
+                ans +=(paert2_area+part1_area);
+            }
+            else {
             double hight_start =Math.abs(f(p1, x_start) - f(p2, x_start));
             double hight_end =  Math.abs(f(p1, x_end) - f(p2, x_end));
             double trapezoid_area = ((hight_start + hight_end)/2)*dx;
             ans += trapezoid_area;
+        }
         }
 
 		return ans;
@@ -314,13 +320,15 @@ public class Ex1 {
             int exponent = 0;
             if (hat_index != -1) {
                 exponent = Integer.parseInt(term.substring(hat_index + 1));
-            } else if (x_index != -1) {
+            }
+            else if (x_index != -1) {
                 exponent = 1;
             }
             double value = 0;
             if (x_index == -1) {
                 value = Double.parseDouble(term);
-            } else {
+            }
+            else {
                 String before = term.substring(0, x_index);
                 if (before.isEmpty() || before.equals("+"))
                     value = 1.0;

@@ -235,17 +235,51 @@ class Ex1Test {
         double[] expected_p2 = {0};
         assertArrayEquals(expected_p2, test_p2, Ex1.EPS);
     }
+    /**
+     * test for length
+     * checks normal case
+     * checks what if the polynome = 0
+     * checks what if the polynome is negative
+     * checks what idf number of segments <=0
+     * checks what if x2>x1
+     */
     @Test
     public void test_length() {
         double[] p1 = {3, 4, 6};
-        double[] x1 = {-1,0,5,10,11.2};
-        double[] x2 = {4,1,13,25,544};
-        int[] numberOfSegments = {1,3,5,19,100};
-        double[] expected_len = {110.1135,10.056,912.137,3150.354,1,073,506.7};
-        for (int i = 0; i < numberOfSegments.length; i++) {
-            double test_len = Ex1.length(p1, x1[i],x2[i],numberOfSegments[i]);
-            assertEquals(expected_len[i], test_len, Ex1.EPS);
-        }
+        double x1 = 0.0;
+        double x2 = 7.0;
+        int numberOfSegments = 3;
+        double expected_len = 322.10588;
+        double test_len = Ex1.length(p1, x1, x2, numberOfSegments);
+        assertEquals(expected_len,test_len , Ex1.EPS);
+        double[] p2 = {0};
+        double x3 = -1;
+        double x4 = 0.0;
+        int numberOfSegments2 = 12;
+        double expected_len2 = 1;
+        double test_len2 = Ex1.length(p2, x3, x4, numberOfSegments2);
+        assertEquals(expected_len2,test_len2 , Ex1.EPS);
+        double[] p3 = {0,0,-2};
+        double x5 = 13;
+        double x6 = 15;
+        int numberOfSegments3 = 10;
+        double expected_len3 =112.018 ;
+        double test_len3 = Ex1.length(p3, x5, x6, numberOfSegments3);
+        assertEquals(expected_len3,test_len3,Ex1.EPS);
+        double[] p4 = {1,2,3};
+        double x7 = 12;
+        double x8 = 15;
+        int numberOfSegments4 = -1;
+        double expected_len4 = 0;
+        double test_len4 = Ex1.length(p4, x7, x8, numberOfSegments4);
+        assertEquals(expected_len4,test_len4 , Ex1.EPS);
+        double[] p5 = {1,2,1};
+        double x9 = 10;
+        double x10 = 7;
+        int numberOfSegments5 = 3;
+        double expected_len5 =57.079;
+        double test_len5 = Ex1.length(p5, x9, x10, numberOfSegments5);
+
     }
     @Test
     public void test_poly() {
