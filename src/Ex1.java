@@ -77,6 +77,12 @@ public class Ex1 {
             return ans;
         }
         int lx = xx.length;
+        if (lx == 2 && xx[0] == xx[1]) {
+            return null;
+        }
+        if (lx == 3 && (xx[0] == xx[1] || xx[0] == xx[2] || xx[1] == xx[2])) {
+            return null;
+        }
         if (lx ==2) {
             double x1 = xx[0];
             double x2 = xx[1];
@@ -184,13 +190,13 @@ public class Ex1 {
        if (p1 == null || p2 == null) {
            return -1;
        }
-       if (Math.abs( f(p1, x1) - f(p2, x1))<Ex1.EPS) {
+       if (Math.abs( f(p1, x1) - f(p2, x1))<(Ex1.EPS*Ex1.EPS)) {
            return x1;
        }
-        if (Math.abs(f(p1, mid) - f(p2, mid))<Ex1.EPS) {
+        if (Math.abs(f(p1, mid) - f(p2, mid))<(Ex1.EPS*Ex1.EPS)) {
             return mid;
         }
-        if (Math.abs(x2-x1)<Ex1.EPS) {
+        if (Math.abs(x2-x1)<(Ex1.EPS*Ex1.EPS)) {
             return x1;
         }
        if (f(p1, x1) > f(p2, x1)) {//if f1(x1)>f2(x1)
