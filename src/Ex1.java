@@ -73,15 +73,27 @@ public class Ex1 {
      */
     public static double[] PolynomFromPoints(double[] xx, double[] yy) {
         double[] ans = null;
+        if (xx==null|| yy==null || xx.length != yy.length || xx.length<2) {
+            return ans;
+        }
         int lx = xx.length;
-        int ly = yy.length;
-        if (xx != null && yy != null && lx == ly && lx > 1 && lx < 4) {
+        if (lx ==2) {
+            double x1 = xx[0];
+            double x2 = xx[1];
+            double y1 = yy[0];
+            double y2 = yy[1];
+            double m = (y2 - y1) / (x2 - x1);
+            double b = y1-m*x1;
+            return new double[]{b,m};
+        }
+        if (lx==3) {
             double denom = (xx[0] - xx[1]) * (xx[0] - xx[2]) * (xx[1] - xx[2]);
             double A = (xx[2] * (yy[1] - yy[0]) + xx[1] * (yy[0] - yy[2]) + xx[0] * (yy[2] - yy[1])) / denom;
             double B = (xx[2] * xx[2] * (yy[0] - yy[1]) + xx[1] * xx[1] * (yy[2] - yy[0]) + xx[0] * xx[0] * (yy[1] - yy[2])) / denom;
             double C = (xx[1] * xx[2] * (xx[1] - xx[2]) * yy[0] + xx[2] * xx[0] * (xx[2] - xx[0]) * yy[1] + xx[0] * xx[1] * (xx[0] - xx[1]) * yy[2]) / denom;
             double xv = -B / (2 * A);
             double yv = C - B * B / (4 * A);
+            return  new double[]{C,B,A};
         }
 
 
