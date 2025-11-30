@@ -76,10 +76,15 @@ public class Ex1 {
         int lx = xx.length;
         int ly = yy.length;
         if (xx != null && yy != null && lx == ly && lx > 1 && lx < 4) {
-            /** add you code below
-
-             /////////////////// */
+            double denom = (xx[0] - xx[1]) * (xx[0] - xx[2]) * (xx[1] - xx[2]);
+            double A = (xx[2] * (yy[1] - yy[0]) + xx[1] * (yy[0] - yy[2]) + xx[0] * (yy[2] - yy[1])) / denom;
+            double B = (xx[2] * xx[2] * (yy[0] - yy[1]) + xx[1] * xx[1] * (yy[2] - yy[0]) + xx[0] * xx[0] * (yy[1] - yy[2])) / denom;
+            double C = (xx[1] * xx[2] * (xx[1] - xx[2]) * yy[0] + xx[2] * xx[0] * (xx[2] - xx[0]) * yy[1] + xx[0] * xx[1] * (xx[0] - xx[1]) * yy[2]) / denom;
+            double xv = -B / (2 * A);
+            double yv = C - B * B / (4 * A);
         }
+
+
         return ans;
     }
 
@@ -175,18 +180,18 @@ public class Ex1 {
         }
        if (f(p1, x1) > f(p2, x1)) {//if f1(x1)>f2(x1)
            if (f(p1, mid) > f(p2, mid)) {
-               sameValue(p1, p2, mid, end, Ex1.EPS);
+               return sameValue(p1, p2, mid, end, Ex1.EPS);
            }
            if (f(p1, mid) < f(p2, mid)) {
-               sameValue(p1, p2, start, mid, Ex1.EPS);
+               return sameValue(p1, p2, start, mid, Ex1.EPS);
            }
        }
        else if (f(p2, x1) > f(p1, x1)) {
            if (f(p2, mid) > f(p1, mid)) {
-               sameValue(p1, p2, mid, end, Ex1.EPS);
+               return sameValue(p1, p2, mid, end, Ex1.EPS);
            }
            if (f(p2, mid) < f(p1, mid)) {
-               sameValue(p1, p2, start, mid, Ex1.EPS);
+               return sameValue(p1, p2, start, mid, Ex1.EPS);
            }
        }
         return ans;
@@ -214,6 +219,9 @@ public class Ex1 {
 	 */
     public static double length(double[] p, double x1, double x2, int numberOfSegments) {
         double ans = 0;
+        if(numberOfSegments==0){
+            return ans;
+        }
         if (x1 == x2) {
             return 0;
         }
@@ -252,12 +260,20 @@ public class Ex1 {
 	 */
 	public static double area(double[] p1,double[]p2, double x1, double x2, int numberOfTrapezoid) {
 		double ans = 0;
-        if (x1 > x2 ) {//replace
-            double temp = x1;
-            x1 = x2;
-            x2 = temp;
+        if (p1 == null || p2 == null || numberOfTrapezoid <= 0) {
+            return ans;
         }
-        double width_of_trapezoids = (x2-x1)/numberOfTrapezoid;
+        double dx =Math.abs((x2-x1)/numberOfTrapezoid);
+        double min_x =Math.min(x1,x2);
+        for (int i = 0; i < numberOfTrapezoid; i++) {
+            double x_start = min_x + i * dx;
+            double x_end = min_x + (i+1) * dx;
+            double hight_start =Math.abs(f(p1, x_start) - f(p2, x_start));
+            double hight_end =  Math.abs(f(p1, x_end) - f(p2, x_end));
+            double trapezoid_area = ((hight_start + hight_end)/2)*dx;
+            ans += trapezoid_area;
+        }
+
 		return ans;
 	}
 	/**
@@ -269,12 +285,54 @@ public class Ex1 {
 	 * @return
 	 */
 	public static double[] getPolynomFromString(String p) {
-		double [] ans = ZERO;//  -1.0x^2 +3.0x +2.0
-        /** add you code below
+		double [] ans = ZERO;
+        String s = p.replace(" ", "");
+        s = s.replace("-", "+-");
+        String[] parts = s.split("\\+");
+        int maxPower = 0;
+        for (String term : parts) {
+            if(term.isEmpty())
+                continue;
+            int exponent = term.indexOf('^');
+            if (exponent != -1) {
+                int pow = Integer.parseInt(term.substring(exponent+1));
+                if(pow > maxPower)
+                    maxPower = pow;
+            } else if (term.indexOf('x') != -1) {
+                if(1 > maxPower)
+                    maxPower = 1;
+            }
+        }
 
-         /////////////////// */
-		return ans;
-	}
+        ans = new double[maxPower + 1];
+        for (int i = 0; i < parts.length; i++) {
+            String term = parts[i];
+            if (term.isEmpty())
+                continue;
+            int x_index = term.indexOf('x');
+            int hat_index = term.indexOf('^');
+            int exponent = 0;
+            if (hat_index != -1) {
+                exponent = Integer.parseInt(term.substring(hat_index + 1));
+            } else if (x_index != -1) {
+                exponent = 1;
+            }
+            double value = 0;
+            if (x_index == -1) {
+                value = Double.parseDouble(term);
+            } else {
+                String before = term.substring(0, x_index);
+                if (before.isEmpty() || before.equals("+"))
+                    value = 1.0;
+                else if (before.equals("-"))
+                    value = -1.0;
+                else value = Double.parseDouble(before);
+            }
+
+            ans[exponent] += value;
+        }
+        return ans;
+    }
 	/**
 	 * This function computes the polynomial function which is the sum of two polynomial functions (p1,p2)
      * if (p1 || p2 != null && p1.len>1 || p2.len>1)
